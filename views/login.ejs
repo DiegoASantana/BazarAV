@@ -94,77 +94,35 @@
             document.querySelector('#error-box').style.display = "none"
         }
         
-        document.querySelector('form').addEventListener('submit', function(event) {
+        document.querySelector('form').addEventListener('submit', async (event)=> {
             event.preventDefault(); // Impede o envio do formulário
 
             // Obtém o login e a senha digitados pelo usuário
             var usuario = document.querySelector('#login').value;
             var senha = document.querySelector('#senha').value;
             //const url = `/?user= ${encodeURIComponent(usuario)}`
-            const url = `/login/eftuar_login`
+            const url = `/`
             // Envia a requisição para o servidor
-            fetch('/login/eftuar_login', {
+            const response = await fetch('/login/eftuar_login', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ usuario: usuario, senha: senha })
-            })
-            .then(function(response) {
-                if (response.ok) {
-                    window.location.href = url;
-                }
-                throw new Error('Erro na requisição');
-            })
-            .then(function(data) {
-                if (data.error) {
-                    // Exibe a mensagem de erro no DOM
-                    console.log(data.error)
-                    document.querySelector('#error-message').textContent = data.error;
-                    document.querySelector('#error-box').style.display = "block ";
-                } else {
-                    // Redireciona para a página index
-                    window.location.href= url;
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
             });
 
+            const data = await response.json();
 
-
-       /*const form = document.querySelector('form');
-        const errorMessage = document.getElementById('error-message');
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const xhr = new XMLHttpRequest();
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        console.log(xhr.responseText)
-                        const response = JSON.parse(xhr.responseText);
-                        if (response.message) {
-                        errorMessage.innerText = response.message;
-                        document.querySelector('#error-box').style.display = "block ";
-                        } else {
-                            window.location.href = response.redirect;
-                        }
-                    } else {
-                    console.error('Error: ' + xhr.status);
-                }
-                }
-            };
-
-            xhr.open('POST', '/');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            const formData = new FormData(form);
-            xhr.send(new URLSearchParams(formData).toString());
+            if(data.success){
+                //Usuário e senha corretas
+                window.location.href = url;
+            }else{
+                // Usuario e senha Incorretas
+                document.querySelector('#error-message').textContent = data.message;
+                document.querySelector('#error-box').style.display = "block ";
+            }
         });
-    */
+
 
     </script>
 </body>

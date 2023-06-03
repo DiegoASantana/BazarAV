@@ -23,21 +23,16 @@
         app.use(bodyParser.json());
         app.use(express.static(__dirname + '/public'));
         app.use(express.static(__dirname + '/views'));
-
+        app.use(session({
+            secret: 'teste diego',
+            resave: false,
+            saveUninitialized: false
+        }));
 
     // ROTAS EXTERNAS
         app.use('/',require('./public/Routes/rota_footer'));
         app.use('/login',require('./public/Routes/rota_login'));
         app.use('/link',require('./public/Routes/rota_nav'));
-        app.use(session({
-            secret: 'teste diego',
-            resave: false,
-            saveUninitialized: true
-        }));
-        app.use(function(req,res,next){
-            console.log('Conteudo da sessão: ', req.session);
-            next();
-        })
 
 
 
@@ -49,7 +44,7 @@ app.get('/', (req,res)=>{
     if(req.session.usuario){
         console.log('Usuario Autenticado')
         Itens.findAll().then(function (itens) {
-            res.render('index', { itens: itens , usuario: req.session.usuario});
+            res.render('index', { itens: itens});
         });
     }else{
         console.log('Usuario NÃO Autenticado')
@@ -115,7 +110,7 @@ app.listen(port, () =>{
     console.log("Projeto executando na porta: " + port);
 })
 
-module.exports = app;
+
 
 
 
