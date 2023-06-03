@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bazar Alimentando Vidas</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel ="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="../Imagens/logo.jpg" alt="Logotipo Alimentado Vidas"></a>
+            <a href="">Masculino</a>
+            <a href="">Feminino</a>
+            <a href="">Kids</a>
+            <a href="">Diversos</a>
+        </nav>
+        <div id="cadastrar">
+            <a href="">CADASTRE-SE</a>
+        </div>
+        
+    </header>
+<hr>
+    <main id="roupa">
+        <div id="roupas">
+            <article>
+            	<% itens.forEach(function(item) { %>
+                <img id="imagemRoupa" src="<%= item.ITM_Foto %>" alt="Roupa">
+            </article>
+            <div id="descricao">
+	            <h2 id="nomeRoupa"><%= item.ITM_Item %></h2>
+	            
+	            <p id="descricaoRoupa"><%= item.ITM_Descricao %></p>
+	            <p id="tamanho"> <%= item.ITM_Tamanho %></p>
+	            <p id="preco"><%= item.ITM_Preco %></p>
+ 
+            </div>
+            <% }); %>
+        </div>
+        
+    </main>
+
+    <footer>
+
+    </footer>
+    <script>
+    
+
+    </script>
+</body>
+</html>

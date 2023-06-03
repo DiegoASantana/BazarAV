@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bazar Alimentando Vidas</title>
+    <link rel="shortcut icon" href="../Imagens/favicon.ico" type="image/x-icon">
+    <link rel ="stylesheet" href="../CSS/style_header.css"> <!-- Header / Nav -->
+    <link rel ="stylesheet" href="../CSS/style.css"> <!-- Main -->
+    <link rel ="stylesheet" href="../CSS/style_footer.css"> <!-- Footer -->
+</head>
+<body>
+    <style>
+         #error-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: 2px solid #222222;
+            background-color: #cac6c0fd;
+            border-radius: 20px;
+            display: none;
+        }
+        
+        #error-message {
+            margin: 0 0 10px;
+            font-weight: bold;
+            color:#7c0e04
+        }
+        
+        #error-ok {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    <header>
+        <nav>
+            <a href="/"><img src="../Imagens/favicon.png" alt="Logotipo Alimentado Vidas"></a>
+            <a href="/link/MASCULINO">Masculino</a>
+            <a href="/link/FEMININO">Feminino</a>
+            <a href="/link/Kids">Kids</a>
+            <a href="/link/Diversos">Diversos</a>
+        </nav>
+        
+        
+    </header>
+
+    <main id="main_login">
+
+        <div id="tela_login">
+            <div id="area_Logo">
+                <img src="../Imagens/favicon.ico" alt="">
+            </div>
+
+            <form action="/login/eftuar_login" method="post">
+                <div id="dados_login">
+                    <span>Login:</span>
+                    <div class="campo">
+                        <input type="text" name="usuario" placeholder="login" id="login" required>
+                    </div>
+                </div>
+                <div id="dados_senha">
+                    <span>Senha:</span>
+                    <div class="campo">
+                        <input type="password" name="senha"  placeholder="" id="senha" required minlength="6">
+                    </div>
+                </div>
+                <a href="" id="EsqueceuSenha">Esqueceu sua senha?</a>
+                <div id="area_btn">
+                    <button type="submit" value="Logar" id="btnLogin">Logar</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="error-box">
+            <p id="error-message"></p>
+            <button id="error-ok" onclick="closeErrorBox()">OK</button>
+        </div>
+
+        
+        
+    </main>
+
+    <footer class="footer">
+        <ul>
+            <li><a href="/quemSomos">Quem Somos</a></li>
+            <li><a href="/nossaHistoria">Nossa História</a></li>
+            <li><a href="/sejaUmDoador">Seja um Doador</a></li>
+        </ul>
+    </footer>
+    <script>
+        function closeErrorBox(){
+            document.querySelector('#error-box').style.display = "none"
+        }
+        
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            // Obtém o login e a senha digitados pelo usuário
+            var usuario = document.querySelector('#login').value;
+            var senha = document.querySelector('#senha').value;
+            //const url = `/?user= ${encodeURIComponent(usuario)}`
+            const url = `/login/eftuar_login`
+            // Envia a requisição para o servidor
+            fetch('/login/eftuar_login', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ usuario: usuario, senha: senha })
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    window.location.href = url;
+                }
+                throw new Error('Erro na requisição');
+            })
+            .then(function(data) {
+                if (data.error) {
+                    // Exibe a mensagem de erro no DOM
+                    console.log(data.error)
+                    document.querySelector('#error-message').textContent = data.error;
+                    document.querySelector('#error-box').style.display = "block ";
+                } else {
+                    // Redireciona para a página index
+                    window.location.href= url;
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+            });
+
+
+
+       /*const form = document.querySelector('form');
+        const errorMessage = document.getElementById('error-message');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText)
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.message) {
+                        errorMessage.innerText = response.message;
+                        document.querySelector('#error-box').style.display = "block ";
+                        } else {
+                            window.location.href = response.redirect;
+                        }
+                    } else {
+                    console.error('Error: ' + xhr.status);
+                }
+                }
+            };
+
+            xhr.open('POST', '/');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            const formData = new FormData(form);
+            xhr.send(new URLSearchParams(formData).toString());
+        });
+    */
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bazar Alimentando Vidas</title>
+    <link rel="shortcut icon" href="../Imagens/favicon.ico" type="image/x-icon">
+    <link rel ="stylesheet" href="../CSS/style_header.css"> <!-- Header / Nav -->
+    <link rel ="stylesheet" href="../CSS/style.css"> <!-- Main -->
+    <link rel ="stylesheet" href="../CSS/style_footer.css"> <!-- Footer -->
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/"><img src="../Imagens/favicon.png" alt="Logotipo Alimentado Vidas"></a>
+            <a href="/link/MASCULINO">Masculino</a>
+            <a href="/link/FEMININO">Feminino</a>
+            <a href="/link/Kids">Kids</a>
+            <a href="/link/Diversos">Diversos</a>
+        </nav>
+        <div id="cadastrar">
+            <a href="/login">Entre</a>
+            <span>ou</span>
+            <button>CADASTRE-SE</button>
+        </div>
+        
+
+        
+    </header>
+
+    <main id="item">
+        <div class="pesquisa">
+            <input type="text" id="pesquisar" placeholder="Digite sua pesquisa" name="pesquisa">
+        </div>
+        
+        <div id="centro_Item">
+            <div class="div_foto">
+                <article class="areaFoto">
+                    <% itens.forEach(function(item) { %>
+                    <img id="imagemItem" src="<%= item.ITM_Foto %>" alt="Roupa">
+                </article>
+            </div>
+            <div id="lado_descricao">
+                <div id="descricao">
+                    <h1 id="nomeRoupa"><%= item.ITM_Item %></h1>
+                    <div class="detalhes_centros">
+                        <p id="condicao">Condição: <STRONG>NOVO</STRONG></p>
+                        <hr>
+                        <div class="div_baixo">
+                            <p id="tamanho">Tamanho: <strong><%= item.ITM_Tamanho %></strong></p>
+                            <hr>
+                            <p id="Marca">Marca: <strong><%= item.ITM_Marca %></strong></p>
+                            <hr>
+                            <p id="CodProduto">Cód: <strong><%= item.ITM_CodReferencia %></strong></p>
+                        </div> <!-- FIM DIV div_baixo -->
+                    </div> <!-- FIM DIV detalhes_centros -->
+
+                    <div id="area_valor">
+                        <span>Valor:</span>
+                        <p id="preco">R$ <%= item.ITM_Valor %></p>
+                    </div> <!-- FIM DIV area_valor -->
+
+                    <div id="descricao_Item">
+                        <h3>Descrição:</h3>
+                        <p id="descricaoRoupa">
+                            <%= item.ITM_Descricao %>
+                        </p>
+                    </div><!-- FIM DIV descricao_Item -->
+                    
+                    <div id="area_Botao">
+                        <button type="submit" id="addCarrinho">Adicionar ao Carrinho</button>
+                    </div>
+                </div><!-- FIM DIV descricao -->
+                    <% }); %>
+            </div>
+            
+            
+        </div><!-- FIM DIV centro_Item -->
+
+        
+    </main>
+
+    <footer class="footer">
+        <ul>
+            <li><a href="/quemSomos">Quem Somos</a></li>
+            <li><a href="/nossaHistoria">Nossa História</a></li>
+            <li><a href="/sejaUmDoador">Seja um Doador</a></li>
+        </ul>
+    </footer>
+    <script src="../Javascript/script.js"></script>
+    <script>
+        const container = document.querySelector('.areaFoto');
+        const image = document.querySelector('#imagemItem');
+        const scale = 35;
+
+        container.addEventListener('mousemove', (e) => {
+            const containerRect = container.getBoundingClientRect();
+            const imageRect = image.getBoundingClientRect();
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+            const imageWidth = image.offsetWidth;
+            const imageHeight = image.offsetHeight;
+            
+            const x = (e.clientX - containerRect.left) / containerWidth;
+            const y = (e.clientY - containerRect.top) / containerHeight;
+            
+            const translateX = -1 * (containerWidth - imageWidth) * (x - 0.5) * scale;
+            const translateY = -1 * (containerHeight - imageHeight) * (y - 0.5) * scale;
+
+
+
+            image.style.transform = `scale(1.9) translate(${translateX}px, ${translateY}px)`;
+        });
+
+        container.addEventListener('mouseout',(e)=>{
+            image.style.transform = `scale(1.0)`;
+        })
+
+    </script>
+</body>
+</html> 

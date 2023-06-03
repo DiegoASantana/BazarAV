@@ -1,0 +1,342 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.pesquisa{
+    margin-top: 20px;
+    margin-left: 80px;
+    width: 500px;
+    margin-bottom: 50px;
+}
+
+.pesquisa input[type="text"]{
+    border: 1px solid #888888;
+    border-radius: 20px;
+    width: 100%;
+    height: 25px;
+    font-size: 12pt;
+    padding-left: 15px;
+}
+
+.pesquisa input:focus{
+    outline: 1px solid rgb(0, 132, 255);
+}
+
+.destaques{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+}
+
+.destaques article{
+    margin-right: 10px;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 1px 1px 5px #000;
+    width: 290px;
+    height: 290px;
+}
+
+.destaques article img{
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.destaques article:hover img{
+    transform: scale(1.1);
+}
+
+#etiqueta{
+    position: absolute;
+    background-color: #098505;
+    border-radius: 40px 5px 5px 40px;
+    padding: 2px 4px;
+    bottom: 5px;
+    left: 5px;
+}
+
+#circulo{
+    position: absolute;
+    background-color: #fff;
+    width: 5px;
+    height: 5px;
+    border-radius: 50% 50%;
+    top: 40%;
+}
+
+.valor_foto{
+    margin-left: 10px;
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+/* ITEM */
+
+
+#item #centro_Item{
+    display: flex;
+    margin-top: 50px;
+    margin: auto;
+}
+
+
+#item .div_foto{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#item .div_foto .areaFoto{
+    border: solid 1px #000;
+    box-shadow: 2px 2px 5px 0px #757575;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.1s ease;
+    position: relative;
+    max-width: 100%;
+    display: block;
+    height: fit-content;
+    margin: auto;
+}
+
+#item .areaFoto #imagemItem{
+    width: 450px;
+    height: auto;
+    
+}
+
+#item .areaFoto:hover #imagemItem{
+    transform: scale(1.9);
+    cursor: zoom-in;
+}
+
+#item #lado_descricao{
+    display: flex;
+    justify-content: center;
+}
+
+#item #descricao{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+#item #descricao h1{
+    text-align: start;
+    width: 100%;
+}
+
+#item .detalhes_centros{
+    border: 1px solid #c4c2c2;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+#item .detalhes_centros #condicao{
+    text-align: center;
+}
+
+#item .detalhes_centros hr{
+    border: 1pt solid;
+    border-color: #c4c2c2;
+}
+
+#item .detalhes_centros .div_baixo{
+    display: flex;   
+}
+
+#item .detalhes_centros .div_baixo{
+    text-align: center;
+}
+
+#item .detalhes_centros .div_baixo #tamanho{
+    margin-right: 10px;
+    margin-left: 10px;
+    
+}
+
+#item .detalhes_centros .div_baixo #Marca{
+    margin:auto 10px;
+}
+
+#item .detalhes_centros .div_baixo #CodProduto{
+    margin:auto 10px;
+}
+
+#area_valor{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: start;
+    font-size: 20pt;
+}
+
+#area_valor span{
+    font-weight: bold;
+}
+
+#preco{
+    margin-left: 20px;
+}
+
+#descricao_Item{
+    width: 60%;
+}
+
+#descricaoRoupa{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    color: #757575;
+}
+
+#item #area_valor #preco{
+    color: #098505;
+    font-weight: bold;
+}
+
+#item #area_Botao{
+    margin-top: 20px;
+}
+
+#item #addCarrinho{
+    border: none;
+    padding: 10px;
+    background-color: rgb(0, 132, 255);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12pt;
+    width: 150px;
+    cursor: pointer;
+}
+#item #addCarrinho:hover{
+    box-shadow: 1px 1px 5px 2px rgb(0, 0, 0, 0.5);
+}
+
+/* AJUSTAR DEPOIS ESSA PARTE*/
+
+.teste1{
+    display: flex;
+}
+
+.teste2{
+    font-size: 20pt;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.teste3{
+    width: 550px;
+}
+
+.teste2 img{
+    width: 500px;
+    height: 500px;
+}
+
+/*-----------------------*/
+
+
+
+/* Login */
+
+#main_login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#tela_login{
+    border: none;
+    width: 280px;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: #cecaca;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    box-shadow: 1px 1px 5px 2px rgb(0, 0, 0, 0.5);
+}
+
+#tela_login #area_Logo{
+    max-width: 100%;
+    display: block;
+    height: fit-content;
+}
+#tela_login #area_Logo img{
+    width: 80px;
+    height: auto;
+}
+
+#tela_login form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 20px;
+}
+
+#tela_login #dados_login, #tela_login #dados_senha{
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin: 5px;
+    align-items: center;
+}
+
+#tela_login #dados_login span, #tela_login #dados_senha span{
+    margin-left: 20px;
+}
+
+#tela_login .campo{
+    position: absolute;
+    right: 30px;
+
+}
+
+#tela_login #EsqueceuSenha{
+    text-align: end;
+    margin-right: 25px;
+}
+
+#tela_login #area_btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#tela_login #btnLogin{
+    width: 100px;
+    border: none;
+    background-color: rgb(0, 132, 255);
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    padding: 7px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 5px 1px rgb(0, 0, 0, 0.4);
+    cursor: pointer;
+}
