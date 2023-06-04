@@ -3,15 +3,30 @@
     const router = express.Router();
 
 router.get('/nossaHistoria', (req,res)=>{
-    res.render('nossahistoria');
+    if(req.session.usuario){
+        var usuarioSessao = req.session.usuario;
+        res.render('nossahistoria', {usuario: usuarioSessao});
+    }else{
+        res.render('nossahistoria');
+    }
 })
 
 router.get('/quemSomos', (req,res)=>{
-    res.render('quemSomos');
+    if(req.session.usuario){
+        var usuarioSessao = req.session.usuario;
+        res.render('quemSomos', {usuario: usuarioSessao});
+    }else{
+        res.render('quemSomos');
+    }
 })
 
 router.get('/sejaUmDoador', (req,res)=>{
-    res.render('sejaUmDoador');
+    if(req.session.usuario){
+        var usuarioSessao = req.session.usuario;
+        res.render('sejaUmDoador', {usuario: usuarioSessao});
+    }else{
+        res.render('sejaUmDoador');
+    }
 })
 
 

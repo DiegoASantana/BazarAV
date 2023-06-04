@@ -18,11 +18,16 @@
             <a href="/link/Kids">Kids</a>
             <a href="/link/Diversos">Diversos</a>
         </nav>
+        
+        <script>  
+            var usuario = '<%= typeof usuario !== "undefined" ? usuario: "" %>' 
+        </script>
         <div id="cadastrar">
             <a href="/login">Entre</a>
             <span>ou</span>
             <button>CADASTRE-SE</button>
         </div>
+        <div id="usuarioLogado"></div>
         
     </header>
 

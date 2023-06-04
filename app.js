@@ -40,11 +40,11 @@
 
 app.get('/', (req,res)=>{
     //const itemIds = [5,3,2,4,1]
-    console.log(req.session.usuario)
     if(req.session.usuario){
+        var usuarioSessao = req.session.usuario
         console.log('Usuario Autenticado')
         Itens.findAll().then(function (itens) {
-            res.render('index', { itens: itens});
+            res.render('index', { itens: itens, usuario: usuarioSessao });
         });
     }else{
         console.log('Usuario NÃO Autenticado')
@@ -73,37 +73,77 @@ return randomNumbers;
 
 app.get('/roupa/:id', (req,res) =>{
     let id_Item = req.params.id
-    Itens.findAll({where: {ITM_IdItem: id_Item}}).then(function(itens){
-        res.render('item', {itens: itens})
-    })
+    
+    if(req.session.usuario){
+        var usuarioSessao = req.session.usuario
+        Itens.findAll({where: {ITM_IdItem: id_Item}}).then(function(itens){
+            res.render('item', {itens: itens, usuario: usuarioSessao})
+        })
+    }else{
+        Itens.findAll({where: {ITM_IdItem: id_Item}}).then(function(itens){
+            res.render('item', {itens: itens})
+        })
+    }
 })
 
 
 app.get('/pesquisa/:pesquisa', (req,res)=>{
     let parametro = req.params.pesquisa
-    Itens.findAll({
-        where:{
-            [Oper.or]:[
-                {ITM_Sexo: parametro},
-                {ITM_Marca: parametro},
-                {ITM_Descricao:{
-                    [Oper.like]:`%${parametro}%`
-                }},
-                {ITM_Item:{
-                    [Oper.like]:`%${parametro}%`
-                }}
-            ]
-            
-        }
-    }).then(function (itens) {
-        //res.status(201).json(itens)
-        res.render('pesquisa', { itens: itens, pesquisa: parametro });
-    });
+    if(req.session.usuario){
+        var usuarioSessao = req.session.usuario;
+        Itens.findAll({
+            where:{
+                [Oper.or]:[
+                    {ITM_Sexo: parametro},
+                    {ITM_Marca: parametro},
+                    {ITM_Descricao:{
+                        [Oper.like]:`%${parametro}%`
+                    }},
+                    {ITM_Item:{
+                        [Oper.like]:`%${parametro}%`
+                    }}
+                ]
+                
+            }
+        }).then(function (itens) {
+            //res.status(201).json(itens)
+            res.render('pesquisa', { itens: itens, pesquisa: parametro, usuario: usuarioSessao });
+        });
+
+    }else{
+
+        Itens.findAll({
+            where:{
+                [Oper.or]:[
+                    {ITM_Sexo: parametro},
+                    {ITM_Marca: parametro},
+                    {ITM_Descricao:{
+                        [Oper.like]:`%${parametro}%`
+                    }},
+                    {ITM_Item:{
+                        [Oper.like]:`%${parametro}%`
+                    }}
+                ]
+                
+            }
+        }).then(function (itens) {
+            //res.status(201).json(itens)
+            res.render('pesquisa', { itens: itens, pesquisa: parametro });
+        });
+    }
     
 });
 
 
-
+app.get('/logout', (req,res)=>{
+    req.session.destroy((err)=>{
+        if(err){
+            console.error('Erro ao encerrar a sessão: ' + err);
+        }else{
+            res.redirect('/');
+        }
+    })
+})
 
 
 app.listen(port, () =>{

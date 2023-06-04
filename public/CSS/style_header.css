@@ -44,7 +44,6 @@ nav a:hover{
 }
 
 #cadastrar a{
-    
     font-size: 14pt;
     color: rgb(0, 132, 255);
     text-align: center;
@@ -68,4 +67,27 @@ nav a:hover{
 #cadastrar button:hover{
     box-shadow: 1px 1px 5px 2px rgb(0, 0, 0, 0.2);
     cursor: pointer;
+}
+
+
+#usuarioLogado{
+    position: absolute;
+    right: 20px;
+    display: none;
+    width: 250px;
+    flex-direction: column;
+    align-items: center;
+    top:30%;
+}
+
+#usuarioLogado #bem_vindo{
+    color: rgb(0, 132, 255);
+    margin: 0;
+    width: 100%;
+    text-align: end;
+}
+
+#usuarioLogado a{
+    width: 95%;
+    text-align: end;
 }

@@ -19,11 +19,16 @@
             <a href="/link/Kids">Kids</a>
             <a href="/link/Diversos">Diversos</a>
         </nav>
+        <script>  
+            var usuario = '<%= typeof usuario !== "undefined" ? usuario: "" %>' 
+        </script>
         <div id="cadastrar">
             <a href="/login">Entre</a>
             <span>ou</span>
             <button>CADASTRE-SE</button>
         </div>
+        <div id="usuarioLogado"></div>
+        
         
     </header>
 
@@ -59,13 +64,7 @@
             <li><a href="/sejaUmDoador">Seja um Doador</a></li>
         </ul>
     </footer>
+   
     <script src="../Javascript/script.js"></script>
-    <script>
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        const usuario = urlParams.get('user');
-
-        //sessionStorage.setItem("Usuario", usuario)
-    </script>
 </body>
 </html>
