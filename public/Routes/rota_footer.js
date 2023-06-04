@@ -3,29 +3,32 @@
     const router = express.Router();
 
 router.get('/nossaHistoria', (req,res)=>{
+    let redirectUrl = `/nossaHistoria`
     if(req.session.usuario){
         var usuarioSessao = req.session.usuario;
-        res.render('nossahistoria', {usuario: usuarioSessao});
+        res.render('nossahistoria', {usuario: usuarioSessao, redirectUrl: redirectUrl});
     }else{
-        res.render('nossahistoria');
+        res.render('nossahistoria',{redirectUrl: redirectUrl});
     }
 })
 
 router.get('/quemSomos', (req,res)=>{
+    let redirectUrl = `/quemSomos`
     if(req.session.usuario){
         var usuarioSessao = req.session.usuario;
-        res.render('quemSomos', {usuario: usuarioSessao});
+        res.render('quemSomos', {usuario: usuarioSessao, redirectUrl: redirectUrl});
     }else{
-        res.render('quemSomos');
+        res.render('quemSomos', {redirectUrl: redirectUrl});
     }
 })
 
 router.get('/sejaUmDoador', (req,res)=>{
+    let redirectUrl = `/`
     if(req.session.usuario){
         var usuarioSessao = req.session.usuario;
-        res.render('sejaUmDoador', {usuario: usuarioSessao});
+        res.render('sejaUmDoador', {usuario: usuarioSessao, redirectUrl: redirectUrl});
     }else{
-        res.render('sejaUmDoador');
+        res.render('sejaUmDoador', {redirectUrl: redirectUrl});
     }
 })
 

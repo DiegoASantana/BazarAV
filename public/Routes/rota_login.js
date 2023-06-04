@@ -5,7 +5,12 @@
 
 
 router.get('/', (req,res)=>{
-    res.render('login');
+    // Salve a URL da página anterior como uma query string
+    const redirectUrl = req.query.redirect || '/';
+    console.log(redirectUrl)
+
+    // Renderize a página de login, passando a URL da página anterior como um parâmetro
+    res.render('login', { redirectUrl });
 })
 
 

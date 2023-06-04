@@ -23,7 +23,9 @@
             var usuario = '<%= typeof usuario !== "undefined" ? usuario: "" %>' 
         </script>
         <div id="cadastrar">
-            <a href="/login">Entre</a>
+            <% var redirect = encodeURIComponent(redirectUrl) %>
+            <a href="/login?redirect=<%= redirect %>">Entre</a>
+            <% console.log (redirect) %>
             <span>ou</span>
             <button>CADASTRE-SE</button>
         </div>

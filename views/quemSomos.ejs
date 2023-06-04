@@ -23,7 +23,7 @@
             var usuario = '<%= typeof usuario !== "undefined" ? usuario: "" %>' 
         </script>
         <div id="cadastrar">
-            <a href="/login">Entre</a>
+            <a href="/login?redirect= <%= redirectUrl %>">Entre</a>
             <span>ou</span>
             <button>CADASTRE-SE</button>
         </div>

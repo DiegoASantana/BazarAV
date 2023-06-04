@@ -23,7 +23,7 @@
             var usuario = '<%= typeof usuario !== "undefined" ? usuario: "" %>' 
         </script>
         <div id="cadastrar">
-            <a href="/login">Entre</a>
+            <a href="/login?redirect= <%= redirectUrl %>">Entre</a>
             <span>ou</span>
             <button>CADASTRE-SE</button>
         </div>
@@ -45,8 +45,9 @@
         
         <div class="destaques">
             <% itens.forEach(function(item){ %>
+                <% var codReferencia = encodeURIComponent( item.ITM_CodReferencia) %>
             <article>
-                <img src="<%= item.ITM_Foto %>" alt="exemplo de roupa" onclick="location.href = '/roupa/<%= item.ITM_IdItem %>'">
+                <img src="<%= item.ITM_Foto %>" alt="exemplo de roupa" onclick="location.href = '/roupa?codReferencia=<%= codReferencia %>'">
                 <div id="etiqueta">
                     <div id="circulo"></div>
                     <span class="valor_foto">R$ <%= item.ITM_Valor %></span>

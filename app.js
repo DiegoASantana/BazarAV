@@ -40,19 +40,16 @@
 
 app.get('/', (req,res)=>{
     //const itemIds = [5,3,2,4,1]
-    if(req.session.usuario){
-        var usuarioSessao = req.session.usuario
-        console.log('Usuario Autenticado')
-        Itens.findAll().then(function (itens) {
-            res.render('index', { itens: itens, usuario: usuarioSessao });
-        });
-    }else{
-        console.log('Usuario NÃO Autenticado')
-        Itens.findAll().then(function (itens) {
-            res.render('index', { itens: itens});
-        });
-    }
-    
+    let redirectUrl = `/`
+
+    Itens.findAll().then(function (itens) {
+        if(req.session.usuario){
+            var usuarioSessao = req.session.usuario;
+            res.render('index', { itens: itens, usuario: usuarioSessao, redirectUrl: redirectUrl });
+        }else{
+            res.render('index', { itens: itens, redirectUrl: redirectUrl });
+        }
+    });
 })
 
 
@@ -71,68 +68,51 @@ return randomNumbers;
 }
 
 
-app.get('/roupa/:id', (req,res) =>{
-    let id_Item = req.params.id
+app.get('/roupa', (req,res) =>{
+    let codReferencia = req.query.codReferencia;
     
-    if(req.session.usuario){
-        var usuarioSessao = req.session.usuario
-        Itens.findAll({where: {ITM_IdItem: id_Item}}).then(function(itens){
-            res.render('item', {itens: itens, usuario: usuarioSessao})
-        })
-    }else{
-        Itens.findAll({where: {ITM_IdItem: id_Item}}).then(function(itens){
-            res.render('item', {itens: itens})
-        })
-    }
+    console.log('variavél:' + codReferencia)
+
+    Itens.findAll({where: {ITM_CodReferencia: codReferencia}}).then((itens)=>{
+        if(req.session.usuario){
+            var usuarioSessao = req.session.usuario
+            res.render('item', {itens: itens, usuario: usuarioSessao, redirectUrl: codReferencia})
+        }else{
+            res.render('item', {itens: itens, redirectUrl: codReferencia})
+        }
+    })
+    
 })
 
 
 app.get('/pesquisa/:pesquisa', (req,res)=>{
     let parametro = req.params.pesquisa
-    if(req.session.usuario){
-        var usuarioSessao = req.session.usuario;
-        Itens.findAll({
-            where:{
-                [Oper.or]:[
-                    {ITM_Sexo: parametro},
-                    {ITM_Marca: parametro},
-                    {ITM_Descricao:{
-                        [Oper.like]:`%${parametro}%`
-                    }},
-                    {ITM_Item:{
-                        [Oper.like]:`%${parametro}%`
-                    }}
-                ]
-                
-            }
-        }).then(function (itens) {
-            //res.status(201).json(itens)
-            res.render('pesquisa', { itens: itens, pesquisa: parametro, usuario: usuarioSessao });
-        });
-
-    }else{
-
-        Itens.findAll({
-            where:{
-                [Oper.or]:[
-                    {ITM_Sexo: parametro},
-                    {ITM_Marca: parametro},
-                    {ITM_Descricao:{
-                        [Oper.like]:`%${parametro}%`
-                    }},
-                    {ITM_Item:{
-                        [Oper.like]:`%${parametro}%`
-                    }}
-                ]
-                
-            }
-        }).then(function (itens) {
-            //res.status(201).json(itens)
-            res.render('pesquisa', { itens: itens, pesquisa: parametro });
-        });
-    }
-    
+    let redirectUrl = `/pesquisa/${parametro}`
+    Itens.findAll({
+        where:{
+            [Oper.or]:[
+                {ITM_Sexo: parametro},
+                {ITM_Marca: parametro},
+                {ITM_CodReferencia: parametro},
+                {ITM_Descricao:{
+                    [Oper.like]:`%${parametro}%`
+                }},
+                {ITM_Item:{
+                    [Oper.like]:`%${parametro}%`
+                }}
+            ]
+        }
+    })
+    .then((itens)=>{
+        if(req.session.usuario){
+            var usuarioSessao = req.session.usuario;
+            res.render('pesquisa', { itens: itens, pesquisa: parametro, usuario: usuarioSessao, redirectUrl: redirectUrl });
+        }else{
+            res.render('pesquisa', { itens: itens, pesquisa: parametro, redirectUrl: redirectUrl });
+        }
+    })
 });
+
 
 
 app.get('/logout', (req,res)=>{

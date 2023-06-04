@@ -93,6 +93,8 @@
         function closeErrorBox(){
             document.querySelector('#error-box').style.display = "none"
         }
+        var redirectUrl = '<%=redirectUrl%>'
+        console.log(redirectUrl)
         
         document.querySelector('form').addEventListener('submit', async (event)=> {
             event.preventDefault(); // Impede o envio do formulário
@@ -115,7 +117,13 @@
 
             if(data.success){
                 //Usuário e senha corretas
-                window.location.href = url;
+                //window.location.href = url;
+
+                // Redirecione de volta para a URL da página anterior
+                const redirect = `/roupa?codReferencia=${encodeURIComponent(redirectUrl)}`;
+                alert(redirect);
+
+                window.location.href = redirect;
             }else{
                 // Usuario e senha Incorretas
                 document.querySelector('#error-message').textContent = data.message;
