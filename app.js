@@ -84,7 +84,32 @@ app.get('/roupa', (req,res) =>{
     
 })
 
+app.get('/pesquisa/:pesquisa', (req, res) => {
+    const parametro = req.params.pesquisa;
+    let redirectUrl = `/pesquisa/${parametro}`
+    const palavras = parametro.split(' '); // Dividir a string em palavras individuais
+    const palavrasFiltradas = palavras.filter((palavra)=> palavra.length >=3)
+    const conditions = palavrasFiltradas.map((palavra) => ({
+        [Op.or]: [
+            { ITM_Sexo: palavra },
+            { ITM_Marca: palavra },
+            { ITM_CodReferencia: palavra },
+            { ITM_Descricao: { [Op.like]: `%${palavra}%` } },
+            { ITM_Item: { [Op.like]: `%${palavra}%` } }
+        ]
+    }));
 
+    Itens.findAll({ where: { [Op.and]: conditions } }).then((itens) => {
+        if (req.session.usuario) {
+            const usuarioSessao = req.session.usuario;
+            res.render('pesquisa', { itens: itens, pesquisa: parametro, usuario: usuarioSessao, redirectUrl: redirectUrl });
+        } else {
+            res.render('pesquisa', { itens: itens, pesquisa: parametro, redirectUrl: redirectUrl });
+        }
+    });
+});
+
+/*
 app.get('/pesquisa/:pesquisa', (req,res)=>{
     let parametro = req.params.pesquisa
     let redirectUrl = `/pesquisa/${parametro}`
@@ -123,6 +148,10 @@ app.get('/logout', (req,res)=>{
             res.redirect('/');
         }
     })
+})
+*/
+app.get('/teste', (req,res)=>{
+    res.render('teste')
 })
 
 

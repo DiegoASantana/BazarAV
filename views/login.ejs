@@ -36,11 +36,44 @@
     </style>
     <header>
         <nav>
-            <a href="/"><img src="../Imagens/favicon.png" alt="Logotipo Alimentado Vidas"></a>
-            <a href="/link/MASCULINO">Masculino</a>
-            <a href="/link/FEMININO">Feminino</a>
-            <a href="/link/Kids">Kids</a>
-            <a href="/link/Diversos">Diversos</a>
+            <a id="logo" href="/"><img src="../Imagens/favicon.png" alt="Logotipo Alimentado Vidas"></a>
+            <div id="menu">
+                <ul class="lista_genero">
+                    <li><a href="/link/MASCULINO">Masculino</a>
+                        <ul>
+                            <li><a href="">Camisas</a></li>
+                            <li><a href="">Calças</a></li>
+                            <li><a href="">Bermudas</a></li>
+                            <li><a href="">Sapatos</a></li>
+                        </ul>
+                    </li>
+                        
+                    <li><a href="/link/FEMININO">Feminino</a>
+                        <ul>
+                            <li><a href="">Camisetas</a></li>
+                            <li><a href="">Calças</a></li>
+                            <li><a href="">Saias</a></li>
+                            <li><a href="">Sapatos</a></li>
+                            <li><a href="">Vestidos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/link/Kids">Kids</a>
+                        <ul>
+                            <li><a href="">Camisetas</a></li>
+                            <li><a href="">Calças</a></li>
+                            <li><a href="">Bermudas</a></li>
+                            <li><a href="">Tênis</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/link/Diversos">Diversos</a>
+                        <ul>
+                            <li><a href="">Acessórios</a></li>
+                            <li><a href="">Brinquedos</a></li>
+                            <li><a href="">Utensílios</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </nav>
         
         
@@ -120,10 +153,13 @@
                 //window.location.href = url;
 
                 // Redirecione de volta para a URL da página anterior
-                const redirect = `/roupa?codReferencia=${encodeURIComponent(redirectUrl)}`;
-                alert(redirect);
+                if(redirectUrl.includes('#')){
+                    const redirect = `/roupa?codReferencia=${encodeURIComponent(redirectUrl)}`;
+                    window.location.href = redirect;
+                }else{
+                    window.location.href = redirectUrl;
+                }
 
-                window.location.href = redirect;
             }else{
                 // Usuario e senha Incorretas
                 document.querySelector('#error-message').textContent = data.message;

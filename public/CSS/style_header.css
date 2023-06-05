@@ -10,12 +10,34 @@ nav{
     align-items: center;
     width: 600px;
     margin-left: 130px;
+}
+
+nav #menu {
     justify-content: space-around;
+    align-items: center;
+    width: auto;
+    flex-grow: 1;
+    display: flex;
+}
+
+nav #menu .lista_genero{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    position: relative;
+    padding: 0;
+}
+
+nav #menu .lista_genero li{
+    list-style: none;
 }
 
 nav img{
     width: auto;
     height: 60px;
+}
+
+nav #logo{
     margin-right: 40px;
 }
 
@@ -24,12 +46,59 @@ nav a{
     font-size: 16pt;
     color: rgb(0, 132, 255);
     text-align: center;
+    width: auto;
+    padding: 0;
 }
 
 nav a:hover{
     color: #023f79;    
     text-decoration: underline;
 }
+
+
+/* Estilos para o botão */
+.dropdown-btn {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    width: 100px;
+  }
+   /* Estilos para o menu suspenso */
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      justify-content: space-around;
+      
+  }
+
+  /* Estilos para o menu suspenso quando estiver visível */
+  .dropdown-btn:hover .dropdown-content{
+      display: flex;
+      flex-direction: column;
+  }
+
+  .lista_genero ul{
+      display: none;
+      background-color: rgb(242, 242, 242, 0.5    );
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+      text-align: start;
+      position: absolute;
+      padding: 0;         
+  }
+  .list_genero ul li{
+      padding: 0;
+  }
+
+  .lista_genero li:hover ul{
+      display: block;
+  }
+
+
+
 
 #cadastrar{
     position: absolute;
