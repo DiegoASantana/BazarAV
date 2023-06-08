@@ -39,37 +39,41 @@
             <a id="logo" href="/"><img src="../Imagens/favicon.png" alt="Logotipo Alimentado Vidas"></a>
             <div id="menu">
                 <ul class="lista_genero">
-                    <li><a href="/link/MASCULINO">Masculino</a>
+                    <li><a href="/setor/r?classificacao=Adulto&genero=Masculino">Masculino</a>
                         <ul>
-                            <li><a href="">Camisas</a></li>
-                            <li><a href="">Calças</a></li>
-                            <li><a href="">Bermudas</a></li>
-                            <li><a href="">Sapatos</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Masculino&item=Camisas">Camisetas</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Masculino&item=Calças">Calças</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Masculino&item=Bermudas">Bermudas</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Masculino&item=Calçados">Calçados</a></li>
                         </ul>
                     </li>
                         
-                    <li><a href="/link/FEMININO">Feminino</a>
+                    <li><a href="/setor/r?classificacao=Adulto&genero=Feminino">Feminino</a>
                         <ul>
-                            <li><a href="">Camisetas</a></li>
-                            <li><a href="">Calças</a></li>
-                            <li><a href="">Saias</a></li>
-                            <li><a href="">Sapatos</a></li>
-                            <li><a href="">Vestidos</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Feminino&item=Camisetas">Camisetas</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Feminino&item=Calças">Calças</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Feminino&item=Saias">Saias</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Feminino&item=Vestidos">Vestidos</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Feminino&item=Blusas">Blusas</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Feminino&item=Macacões">Macacões</a></li>
+                            <li><a href="/setor/r?classificacao=Adulto&genero=Feminino&item=Calçados">Calçados</a></li>
                         </ul>
                     </li>
-                    <li><a href="/link/Kids">Kids</a>
+                    <li><a href="/setor/r?classificacao=KIDS">Kids</a>
                         <ul>
-                            <li><a href="">Camisetas</a></li>
-                            <li><a href="">Calças</a></li>
-                            <li><a href="">Bermudas</a></li>
-                            <li><a href="">Tênis</a></li>
+                            <li><a href="/setor/r?classificacao=KIDS&item=Camisetas">Camisetas</a></li>
+                            <li><a href="/setor/r?classificacao=KIDS&item=Calças">Calças</a></li>
+                            <li><a href="/setor/r?classificacao=KIDS&item=Bermudas">Bermudas</a></li>
+                            <li><a href="/setor/r?classificacao=KIDS&item=Vestidos">Vestidos</a></li>
+                            <li><a href="/setor/r?classificacao=KIDS&item=Blusas">Blusas</a></li>
+                            <li><a href="/setor/r?classificacao=KIDS&item=Calçados">Calçados</a></li>
                         </ul>
                     </li>
-                    <li><a href="/link/Diversos">Diversos</a>
+                    <li><a href="/setor/r?classificacao=Diversos">Diversos</a>
                         <ul>
-                            <li><a href="">Acessórios</a></li>
-                            <li><a href="">Brinquedos</a></li>
-                            <li><a href="">Utensílios</a></li>
+                            <li><a href="/setor/r?classificacao=Diversos&&tipo=Acessorios">Acessórios</a></li>
+                            <li><a href="/setor/r?classificacao=Diversos&&tipo=Brinquedos">Brinquedos</a></li>
+                            <li><a href="/setor/r?classificacao=Diversos&&tipo=Utensilios">Utensílios</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -90,7 +94,7 @@
                 <div id="dados_login">
                     <span>Login:</span>
                     <div class="campo">
-                        <input type="text" name="usuario" placeholder="login" id="login" required>
+                        <input type="text" name="email" placeholder="login" id="login" required>
                     </div>
                 </div>
                 <div id="dados_senha">
@@ -133,7 +137,7 @@
             event.preventDefault(); // Impede o envio do formulário
 
             // Obtém o login e a senha digitados pelo usuário
-            var usuario = document.querySelector('#login').value;
+            var email = document.querySelector('#login').value;
             var senha = document.querySelector('#senha').value;
             //const url = `/?user= ${encodeURIComponent(usuario)}`
             const url = `/`
@@ -143,7 +147,7 @@
                 headers: {
                 'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ usuario: usuario, senha: senha })
+                body: JSON.stringify({ email: email, senha: senha })
             });
 
             const data = await response.json();
@@ -154,7 +158,7 @@
 
                 // Redirecione de volta para a URL da página anterior
                 if(redirectUrl.includes('#')){
-                    const redirect = `/roupa?codReferencia=${encodeURIComponent(redirectUrl)}`;
+                    const redirect = `/roupa/r?codReferencia=${encodeURIComponent(redirectUrl)}`;
                     window.location.href = redirect;
                 }else{
                     window.location.href = redirectUrl;

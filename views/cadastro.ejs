@@ -55,43 +55,59 @@
                 </ul>
             </div>
         </nav>
-        
         <script>  
             var usuario = '<%= typeof usuario !== "undefined" ? usuario: "" %>' 
         </script>
         <div id="cadastrar">
-            <a href="/login/l?redirect=<%= redirectUrl %>">Entre</a>
+            <a href="/login/l?redirect= <%= redirectUrl %>">Entre</a>
             <span>ou</span>
-            <button>CADASTRE-SE</button>
+            <button onclick="location.href='/cadastrar'">CADASTRE-SE</button>
         </div>
         <div id="usuarioLogado"></div>
-        
+
     </header>
 
-    <main id="main_consulta">
+<!----------------------------------------------------------------------------->
+    <main id="main_cadastrar">
 
-        <div class="pesquisa">
-            <input type="text" id="pesquisar" placeholder="Digite sua pesquisa" name="pesquisa">
-
-        </div>
-
-
-        <h1>Resultados para a pesquisa: "<%= pesquisa %>"</h1>
-
-        
-        
-        <div class="destaques">
-            <% itens.forEach(function(item){ %>
-                <% var codReferencia = encodeURIComponent( item.ITM_CodReferencia) %>
-            <article>
-                <img src="<%= item.ITM_Foto %>" alt="exemplo de roupa" onclick="location.href = '/roupa/r?codReferencia=<%= codReferencia %>'">
-                <div id="etiqueta">
-                    <div id="circulo"></div>
-                    <span class="valor_foto">R$ <%= item.ITM_Valor %></span>
+       <div id="formulario_cadastro">
+            <form action="/cadastrar/efetuar_cadastro" method="post">
+                <div class="campos_cadastrar">
+                    <span>Nome</span>
+                    <input type="text" name="nome" id="campo_nome" placeholder="Digite seu nome" required>
                 </div>
-            </article>
-            <% }) %>
-        </div>
+
+                <div class="campos_cadastrar">
+                    <div><span>Telefone</span> <span id="opcional">*Opcional</span></div>
+                    <input type="text" name="telefone" id="campo_telefone" placeholder="(11) 9XXXX-XXXX">
+                </div>
+                
+                <div class="campos_cadastrar">
+                    <span>E-mail</span>
+                    <input type="text" name="email" id="campo_email" placeholder="Digite seu e-mail" required>
+                </div>
+
+                <div class="campos_cadastrar" id="area_senha">
+                    <div class="campos_senha">
+                        <span>Senha</span>
+                        <input type="password" name="password" id="campo_senha" placeholder="Digite uma senha segura" required>
+                    </div>
+                    <div class="campos_senha confirme">
+                        <div>
+                            <span>Confirme sua Senha</span>
+                            <input type="password" name="confirme_password" id="campo_senha" placeholder="Confirme sua Senha" required>
+                        </div>
+                    </div>
+                </div>
+                <div id="area_btnCadastrar">         
+                    <button  id="btncadastrar" type="submit">Cadastrar</button>
+                </div>
+
+                
+            </form>
+       </div>
+
+        
         
     </main>
 
@@ -102,6 +118,6 @@
             <li><a href="/sejaUmDoador">Seja um Doador</a></li>
         </ul>
     </footer>
-    <script src="../Javascript/script.js"></script>
+
 </body>
 </html>

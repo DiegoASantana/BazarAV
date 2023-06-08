@@ -5,7 +5,7 @@ const Usuarios = db.sequelize.define('usuarios',{
         type: db.Sequelize.INTEGER,
         primaryKey: true
     },
-    USR_Usuario:{
+    USR_Email:{
         type: db.Sequelize.STRING
     },
     USR_Senha:{
@@ -13,21 +13,6 @@ const Usuarios = db.sequelize.define('usuarios',{
     },
     USR_NomeCompleto:{
         type: db.Sequelize.STRING
-    },
-    USR_NumCPF:{
-        type: db.Sequelize.STRING
-    },
-    USR_Email:{
-        type: db.Sequelize.STRING
-    },
-    USR_DDD:{
-        type: db.Sequelize.INTEGER
-    },
-    USR_NumTelefone:{
-        type: db.Sequelize.STRING
-    },
-    USR_DDDCelular:{
-        type: db.Sequelize.INTEGER
     },
     USR_NumCelular:{
         type: db.Sequelize.INTEGER

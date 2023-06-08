@@ -31,9 +31,9 @@
 
     // ROTAS EXTERNAS
         app.use('/',require('./public/Routes/rota_footer'));
+        app.use('/setor',require('./public/Routes/rota_nav'));
         app.use('/login',require('./public/Routes/rota_login'));
-        app.use('/link',require('./public/Routes/rota_nav'));
-
+        app.use('/cadastrar',require('./public/Routes/rota_cadastrar'));
 
 
 
@@ -68,7 +68,7 @@ return randomNumbers;
 }
 
 
-app.get('/roupa', (req,res) =>{
+app.get('/roupa/r', (req,res) =>{
     let codReferencia = req.query.codReferencia;
     
     console.log('variavél:' + codReferencia)
@@ -81,7 +81,6 @@ app.get('/roupa', (req,res) =>{
             res.render('item', {itens: itens, redirectUrl: codReferencia})
         }
     })
-    
 })
 
 app.get('/pesquisa/:pesquisa', (req, res) => {
@@ -95,7 +94,8 @@ app.get('/pesquisa/:pesquisa', (req, res) => {
             { ITM_Marca: palavra },
             { ITM_CodReferencia: palavra },
             { ITM_Descricao: { [Op.like]: `%${palavra}%` } },
-            { ITM_Item: { [Op.like]: `%${palavra}%` } }
+            { ITM_Item: { [Op.like]: `%${palavra}%` } },
+            { ITM_PalavrasChave: { [Op.like]: `%${palavra}%` } }
         ]
     }));
 
@@ -109,35 +109,6 @@ app.get('/pesquisa/:pesquisa', (req, res) => {
     });
 });
 
-/*
-app.get('/pesquisa/:pesquisa', (req,res)=>{
-    let parametro = req.params.pesquisa
-    let redirectUrl = `/pesquisa/${parametro}`
-    Itens.findAll({
-        where:{
-            [Oper.or]:[
-                {ITM_Sexo: parametro},
-                {ITM_Marca: parametro},
-                {ITM_CodReferencia: parametro},
-                {ITM_Descricao:{
-                    [Oper.like]:`%${parametro}%`
-                }},
-                {ITM_Item:{
-                    [Oper.like]:`%${parametro}%`
-                }}
-            ]
-        }
-    })
-    .then((itens)=>{
-        if(req.session.usuario){
-            var usuarioSessao = req.session.usuario;
-            res.render('pesquisa', { itens: itens, pesquisa: parametro, usuario: usuarioSessao, redirectUrl: redirectUrl });
-        }else{
-            res.render('pesquisa', { itens: itens, pesquisa: parametro, redirectUrl: redirectUrl });
-        }
-    })
-});
-
 
 
 app.get('/logout', (req,res)=>{
@@ -149,7 +120,7 @@ app.get('/logout', (req,res)=>{
         }
     })
 })
-*/
+
 app.get('/teste', (req,res)=>{
     res.render('teste')
 })
@@ -159,31 +130,3 @@ app.listen(port, () =>{
     console.log("Projeto executando na porta: " + port);
 })
 
-
-
-
-
-
-
-/*
-app.get('/', (req,res)=>{
-    const itemIds = generateRandomNumbers(4, 1, 6);
-    Itens.findAll({ where: { ITM_IdItem: { [Op.in]: itemIds } } }).then(function (itens) {
-        console.log(itens);
-        res.render('index', { itens: itens });
-    });
-    
-})
-
-// Função para gerar números aleatórios
-function generateRandomNumbers(count, min, max) {
-const randomNumbers = [];
-while (randomNumbers.length < count) {
-    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    if (!randomNumbers.includes(randomNumber)) {
-        randomNumbers.push(randomNumber);
-    }
-}
-return randomNumbers;
-}
-*/
