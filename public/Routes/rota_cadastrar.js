@@ -45,10 +45,28 @@ router.post('/efetuar_cadastro', (req, res)=>{
         .catch((error)=>{
             res.status(404).send({message: 'Houve um erro na criação do Usuario: ', error})
         });
-    })
+    });
     
-})
+});
 
+
+router.post('/validaEmail', async (req,res)=>{
+    const {email} = req.body;
+
+    try{
+        const usuario = await Usuario.findOne({where:{ USR_Email: email}});
+        if(usuario){
+            console.log(usuario)
+            res.send('existe'); // Se o e-mail ja existir cadastrado, será enviado essa mensagem 
+        } else{
+            res.send('nao_existe'); // E-mail não existe
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).send('Erro ao verificar o e-mail'); // Em caso de erro, envie uma resposta de erro
+    }
+
+});
 
 
 module.exports = router;
