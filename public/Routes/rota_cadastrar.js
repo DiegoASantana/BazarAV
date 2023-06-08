@@ -45,10 +45,9 @@ router.post('/efetuar_cadastro', (req, res)=>{
         .catch((error)=>{
             res.status(404).send({message: 'Houve um erro na criação do Usuario: ', error})
         });
-    });
+    })
     
-});
-
+})
 
 router.post('/validaEmail', async (req,res)=>{
     const {email} = req.body;
@@ -66,7 +65,8 @@ router.post('/validaEmail', async (req,res)=>{
         res.status(500).send('Erro ao verificar o e-mail'); // Em caso de erro, envie uma resposta de erro
     }
 
-});
+})
+
 
 
 module.exports = router;

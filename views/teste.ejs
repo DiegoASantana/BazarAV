@@ -12,6 +12,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
 <body>
+    <style>
+        #error-box {
+           position: fixed;
+           top: 50%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           padding: 20px;
+           border: none;
+           box-shadow: 1px 1px 5px 1px rgb(0, 0, 0, 0.6);
+           background-color: #cac6c0fd;
+           border-radius: 20px;
+           display: none;
+       }
+       
+       #error-message {
+           margin: 0 0 10px;
+           font-weight: bold;
+           color:#7c0e04
+       }
+       
+       #error-ok {
+           display: block;
+           margin: 0 auto;
+       }
+   </style>
     <header>
         <nav>
             <a id="logo" href="/"><img src="../../Imagens/favicon.png" alt="Logotipo Alimentado Vidas"></a>
@@ -99,6 +124,10 @@
                  <div id="area_btnCadastrar">         
                      <button  id="btncadastrar" type="submit">Cadastrar</button>
                  </div>
+                 <div id="error-box">
+                    <p id="error-message"></p>
+                    <button id="error-ok" onclick="closeErrorBox();return false" >OK</button>
+                </div>
  
                  
              </form>
@@ -116,28 +145,55 @@
         </ul>
     </footer>
     <script>
+        function closeErrorBox(){
+            document.querySelector('#error-box').style.display = "none";
+            return false;
+        }
         $(document).ready(function(){
           $('#campo_telefone').inputmask('(99) 99999-9999')  
         })
 
 
         $(document).ready(function() {
-        $('#Fmlr_cadastrar').submit(function(event) {
-            var senha = $('#password').val();
-            var confirmarSenha = $('#confirme_password').val();
-
-            if (senha !== confirmarSenha) {
+            $('#Fmlr_cadastrar').submit(async function(event) {
                 event.preventDefault(); // Impede o envio do formulário
+                var email = $('#campo_email').val();
+                var senha = $('#password').val();
+                var confirmarSenha = $('#confirme_password').val();
 
-                // Exibe uma mensagem de erro
-                alert('A senha e a confirmação de senha devem ser iguais.');
+                $.ajax({
+                    url: '/cadastrar/validaEmail',
+                    method: 'POST',
+                    data: {email: email},
+                    success: function(response){
+                        if(response ==='existe'){
+                            var mensagem = 'E-mail Já cadastrado.\nUtilize outro e-mail ou realize o Login.'
+                            document.querySelector('#error-message').textContent = mensagem;
+                            document.querySelector('#error-box').style.display = "block ";
+                        }else{
+                            // Se o e-mail não existe, envie o formulário
 
-                // Limpa os campos de senha
-                $('#password').val('');
-                $('#confirme_password').val('');
-            }
+                            if (senha !== confirmarSenha) {
+                                // Exibe uma mensagem de erro
+                                var mensagem = 'A senha e a confirmação de senha devem ser iguais.'
+                                document.querySelector('#error-message').textContent = mensagem;
+                                document.querySelector('#error-box').style.display = "block ";
+
+                                // Limpa os campos de senha
+                                $('#password').val('');
+                                $('#confirme_password').val('');
+                            }else{
+                                $('#Fmlr_cadastrar')[0].submit();
+                            }
+                        }
+                    },
+                    error: function(){
+                        alert('Ocorreu um erro ao verificar o e-mail.')
+                    }
+                });
+                
+            });
         });
-    });
 
 
     // VERSÃO JAVASCRIPT 

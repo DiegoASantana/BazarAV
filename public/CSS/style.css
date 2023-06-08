@@ -321,6 +321,7 @@ main {
     border: none;
     border-radius: 3px;
     height: 20px;
+    box-shadow: 1px 1px 5px 1px rgb(0, 132, 255, 0.5);
 
 }
 
