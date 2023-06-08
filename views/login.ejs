@@ -127,6 +127,19 @@
         </ul>
     </footer>
     <script>
+
+        document.addEventListener('DOMContentLoaded', function(){
+            var urlParams = new URLSearchParams(window.location.search);
+            var mensagem = urlParams.get('mensagem');
+
+            if(mensagem){
+                // Exibe a mensagem na div adequada
+                document.getElementById('error-message').textContent = mensagem;
+                document.getElementById('error-box').style.display = 'block';   
+            }
+        })
+
+
         function closeErrorBox(){
             document.querySelector('#error-box').style.display = "none"
         }

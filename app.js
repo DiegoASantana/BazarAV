@@ -130,3 +130,63 @@ app.listen(port, () =>{
     console.log("Projeto executando na porta: " + port);
 })
 
+
+
+
+
+
+
+/*
+app.get('/', (req,res)=>{
+    const itemIds = generateRandomNumbers(4, 1, 6);
+    Itens.findAll({ where: { ITM_IdItem: { [Op.in]: itemIds } } }).then(function (itens) {
+        console.log(itens);
+        res.render('index', { itens: itens });
+    });
+    
+})
+
+// Função para gerar números aleatórios
+function generateRandomNumbers(count, min, max) {
+const randomNumbers = [];
+while (randomNumbers.length < count) {
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    if (!randomNumbers.includes(randomNumber)) {
+        randomNumbers.push(randomNumber);
+    }
+}
+return randomNumbers;
+}
+
+
+
+
+app.get('/pesquisa/:pesquisa', (req,res)=>{
+    let parametro = req.params.pesquisa
+    let redirectUrl = `/pesquisa/${parametro}`
+    Itens.findAll({
+        where:{
+            [Oper.or]:[
+                {ITM_Sexo: parametro},
+                {ITM_Marca: parametro},
+                {ITM_CodReferencia: parametro},
+                {ITM_Descricao:{
+                    [Oper.like]:`%${parametro}%`
+                }},
+                {ITM_Item:{
+                    [Oper.like]:`%${parametro}%`
+                }}
+            ]
+        }
+    })
+    .then((itens)=>{
+        if(req.session.usuario){
+            var usuarioSessao = req.session.usuario;
+            res.render('pesquisa', { itens: itens, pesquisa: parametro, usuario: usuarioSessao, redirectUrl: redirectUrl });
+        }else{
+            res.render('pesquisa', { itens: itens, pesquisa: parametro, redirectUrl: redirectUrl });
+        }
+    })
+});
+
+*/

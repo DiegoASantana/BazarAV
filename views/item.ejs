@@ -62,9 +62,8 @@
         <div id="cadastrar">
             <% var redirect = encodeURIComponent(redirectUrl) %>
             <a href="/login/l?redirect=<%= redirect %>">Entre</a>
-            <% console.log (redirect) %>
             <span>ou</span>
-            <button>CADASTRE-SE</button>
+            <button onclick="location.href='/cadastrar'">CADASTRE-SE</button>
         </div>
         <div id="usuarioLogado"></div>
         

@@ -38,7 +38,9 @@ router.post('/efetuar_cadastro', (req, res)=>{
             USR_Senha: senha
         })
         .then((usuario)=>{
-            res.redirect('/login/l');
+            var mensagemCadastro = 'Parabéns, seu usuário foi cadastrado!\n Realize o Login.';
+            //window.location.href = '/login?mensagem=' + encodeURIComponent(mensagemCadastro);
+            res.redirect('/login/l?mensagem=' + encodeURIComponent(mensagemCadastro));
         })
         .catch((error)=>{
             res.status(404).send({message: 'Houve um erro na criação do Usuario: ', error})

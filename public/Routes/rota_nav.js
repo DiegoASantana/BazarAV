@@ -24,7 +24,15 @@ router.get('/r', (req,res)=>{
         redirectUrl = `setor/r?classificacao=${classificacao}tipo${tipo}`;
     }
 
-   
+    /*if(classificacao && genero && !item && !tipo){
+        redirectUrl = `setor/r?classificacao=${classificacao}&genero=${genero}`;
+    }else if(classificacao && genero && item && !tipo){
+        redirectUrl = `setor/r?classificacao=${classificacao}&genero=${genero}&item=${item}`;
+    }else if(classificacao && !genero && !item & !tipo){
+        redirectUrl = `setor/r?classificacao=${classificacao}`;
+    }else if(classificacao && !genero && item){
+        redirectUrl = `setor/r?classificacao=${classificacao}&item=${item}`;
+    }*/
     console.log(redirectUrl);
 
     Itens.findAll({where:{
@@ -48,5 +56,52 @@ router.get('/r', (req,res)=>{
     })
 });
 
+/*
+router.get('/Adulto/:genero', (req,res)=>{
+let genero = req.params.genero
+let redirectUrl = `setor/Adulto/${genero}`
+console.log(redirectUrl)
+if(req.session.usuario){
+    var usuarioSessao = req.session.usuario;
+    Itens.findAll({where:{ITM_Sexo: genero}}).then(function (itens) {
+
+        res.render('genero', { itens: itens, genero: genero, usuario: usuarioSessao, redirectUrl: redirectUrl } );
+    });
+}else{
+    Itens.findAll({where:{ITM_Sexo: genero}}).then(function (itens) {
+        res.render('genero', { itens: itens, genero: genero, redirectUrl: redirectUrl } );
+    });
+}
+
+
+});
+
+
+router.get('/:genero/p', (req,res)=>{
+const genero = req.params.genero
+const item = req.query.item
+const classificacao = req.query.classificacao;
+let redirectUrl = `setor/${genero}/p`
+
+Itens.findAll({where:{
+    ITM_Sexo: genero,
+    ITM_Classificacao: classificacao,
+    ITM_PalavrasChave:{
+        [Op.like]: `%${item}%`
+    }
+}})
+.then((item)=>{
+    if(req.session.usuario){
+        var usuarioSessao = req.session.usuario;
+        console.log(usuarioSessao)
+        res.render('genero', {itens: item, genero: genero, redirectUrl: redirectUrl, usuario: usuarioSessao});
+    }else{
+        res.render('genero', {itens: item, genero: genero, redirectUrl: redirectUrl});
+    }
+});
+
+
+});
+*/
 
 module.exports = router;

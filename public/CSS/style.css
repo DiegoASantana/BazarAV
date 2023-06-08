@@ -413,7 +413,7 @@ main {
 
 }
 
-#main_cadastrar #formulario_cadastro .campos_cadastrar #campo_senha{
+#main_cadastrar #formulario_cadastro .campos_cadastrar .campo_senha{
     height: 30px;
     width: 170px;
     margin-top: 10px;
