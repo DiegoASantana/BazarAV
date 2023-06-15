@@ -13,18 +13,29 @@
 </head>
 <body>
     <style>
+        #error-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Define a cor de fundo com transparência */
+            z-index: 999; /* Ajusta a ordem de sobreposição para que fique acima dos outros elementos */
+            display: none;
+        }
         #error-box {
-           position: fixed;
-           top: 50%;
-           left: 50%;
-           transform: translate(-50%, -50%);
-           padding: 20px;
-           border: none;
-           box-shadow: 1px 1px 5px 1px rgb(0, 0, 0, 0.6);
-           background-color: #cac6c0fd;
-           border-radius: 20px;
-           display: none;
-       }
+            z-index: 1000;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: none;
+            box-shadow: 1px 1px 5px 1px rgb(0, 0, 0, 0.6);
+            background-color: #cac6c0fd;
+            border-radius: 20px;
+            display: none;
+        }
        
        #error-message {
            margin: 0 0 10px;
@@ -90,7 +101,7 @@
             <span>ou</span>
             <button onclick="location.href='/cadastrar'">CADASTRE-SE</button>
         </div>
-        <div id="usuarioLogado"></div>
+        
 
     </header>
 
@@ -129,6 +140,9 @@
             <div id="area_btnCadastrar">         
                 <button  id="btncadastrar" type="submit">Cadastrar</button>
             </div>
+
+            <div id="error-overlay"></div>
+
             <div id="error-box">
                 <p id="error-message"></p>
                 <button id="error-ok" onclick="closeErrorBox();return false" >OK</button>
@@ -148,10 +162,12 @@
             <li><a href="/sejaUmDoador">Seja um Doador</a></li>
         </ul>
     </footer>
-
+    
+    <script src="../Javascript/script_usuario.js"></script>
     <script>
         function closeErrorBox(){
             document.querySelector('#error-box').style.display = "none";
+            document.querySelector('#error-overlay').style.display = 'none';
             return false;
         }
 
@@ -176,6 +192,7 @@
                             var mensagem = 'E-mail Já cadastrado. Utilize outro e-mail ou realize o Login.'
                             document.querySelector('#error-message').textContent = mensagem;
                             document.querySelector('#error-box').style.display = "block ";
+                            document.querySelector('#error-overlay').style.display = 'block';
                         }else{
                             // Se o e-mail não existe, envie o formulário
 
@@ -184,6 +201,7 @@
                                 var mensagem = 'A senha e a confirmação de senha devem ser iguais.'
                                 document.querySelector('#error-message').textContent = mensagem;
                                 document.querySelector('#error-box').style.display = "block ";
+                                document.querySelector('#error-overlay').style.display = 'block';
 
                                 // Limpa os campos de senha
                                 $('#password').val('');

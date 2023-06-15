@@ -10,30 +10,7 @@ router.get('/r', (req,res)=>{
     let item = req.query.item;
     let genero = req.query.genero;
     let tipo = req.query.tipo;
-    let redirectUrl = '';
 
-    if(classificacao && !genero && !item & !tipo){
-        redirectUrl = `setor/r?classificacao=${classificacao}`;
-    }else if(classificacao && genero && !item && !tipo){
-        redirectUrl = `setor/r?classificacao=${classificacao}&genero=${genero}`;
-    }else if(classificacao && genero && item && !tipo){
-        redirectUrl = `setor/r?classificacao=${classificacao}&genero=${genero}&item=${item}`;
-    }else if(classificacao && !genero && item && !tipo){
-        redirectUrl = `setor/r?classificacao=${classificacao}&item=${item}`;
-    }else if(classificacao && !genero && !item & tipo){
-        redirectUrl = `setor/r?classificacao=${classificacao}tipo${tipo}`;
-    }
-
-    /*if(classificacao && genero && !item && !tipo){
-        redirectUrl = `setor/r?classificacao=${classificacao}&genero=${genero}`;
-    }else if(classificacao && genero && item && !tipo){
-        redirectUrl = `setor/r?classificacao=${classificacao}&genero=${genero}&item=${item}`;
-    }else if(classificacao && !genero && !item & !tipo){
-        redirectUrl = `setor/r?classificacao=${classificacao}`;
-    }else if(classificacao && !genero && item){
-        redirectUrl = `setor/r?classificacao=${classificacao}&item=${item}`;
-    }*/
-    console.log(redirectUrl);
 
     Itens.findAll({where:{
         ...(classificacao && {ITM_Classificacao: classificacao}),
@@ -46,9 +23,9 @@ router.get('/r', (req,res)=>{
     .then(function (itens) {
         if(req.session.usuario){
             var usuarioSessao = req.session.usuario;
-            res.render('setor', { itens: itens, genero: genero, item: item, classificacao: classificacao, tipo: tipo, redirectUrl: redirectUrl, usuario: usuarioSessao } );
+            res.render('setor', { itens: itens, genero: genero, item: item, classificacao: classificacao, tipo: tipo, usuario: usuarioSessao } );
         }else{
-            res.render('setor', { itens: itens, genero: genero, item: item, classificacao: classificacao,  tipo: tipo, redirectUrl: redirectUrl } );
+            res.render('setor', { itens: itens, genero: genero, item: item, classificacao: classificacao,  tipo: tipo} );
         }
     })
     .catch((error)=>{

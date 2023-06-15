@@ -60,7 +60,7 @@
             var usuario = '<%= typeof usuario !== "undefined" ? usuario: "" %>' 
         </script>
         <div id="cadastrar">
-            <a href="/login/l?redirect=<%= redirectUrl %>">Entre</a>
+            <a href="">Entre</a>
             <span>ou</span>
             <button onclick="location.href='/cadastrar'">CADASTRE-SE</button>
         </div>
@@ -75,31 +75,10 @@
         
     </header>
 
-    <main id="main_consulta">
+    <main >
 
-        <div class="pesquisa">
-            <input type="text" id="pesquisar" placeholder="Digite sua pesquisa" name="pesquisa">
+      <h1>VOCÊ AINDA NÃO TEM NENHUM ITEM NO SEU CARRINHO</h1>
 
-        </div>
-
-
-        <h1>Resultados para a pesquisa: "<%= pesquisa %>"</h1>
-
-        
-        
-        <div class="destaques">
-            <% itens.forEach(function(item){ %>
-                <% var codReferencia = encodeURIComponent( item.ITM_CodReferencia) %>
-            <article>
-                <img src="<%= item.ITM_Foto %>" alt="exemplo de roupa" onclick="location.href = '/roupa/r?codReferencia=<%= codReferencia %>'">
-                <div id="etiqueta">
-                    <div id="circulo"></div>
-                    <span class="valor_foto">R$ <%= item.ITM_Valor %></span>
-                </div>
-            </article>
-            <% }) %>
-        </div>
-        
     </main>
 
     <footer class="footer">
@@ -110,6 +89,5 @@
         </ul>
     </footer>
     <script src="../Javascript/script_usuario.js"></script>
-    <script src="../Javascript/script_pesquisar.js"></script>
 </body>
 </html>

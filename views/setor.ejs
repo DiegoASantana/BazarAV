@@ -62,16 +62,40 @@
             var item = '<%= typeof item !== "undefined" ? item: "" %>'
             var classificacao = '<%= typeof classificacao !== "undefined" ? classificacao: "" %>'
             var tipo = '<%= typeof tipo !== "undefined" ? tipo: "" %>'
-
+            let redirectUrl = '';
+            if(classificacao && !genero && !item & !tipo){
+                redirectUrl = `/setor/r?classificacao=${classificacao}`;
+                console.log('1')
+            }else if(classificacao && genero && !item && !tipo){
+                redirectUrl = `/setor/r?classificacao=${classificacao}&genero=${genero}`;
+                console.log('2')
+            }else if(classificacao && genero && item && !tipo){
+                redirectUrl = `/setor/r?classificacao=${classificacao}&genero=${genero}&item=${item}`;
+                console.log('3')
+            }else if(classificacao && !genero && item && !tipo){
+                redirectUrl = `/setor/r?classificacao=${classificacao}&item=${item}`;
+                console.log('4')
+            }else if(classificacao && !genero && !item & tipo){
+                redirectUrl = `/setor/r?classificacao=${classificacao}tipo${tipo}`;
+                console.log('5')
+            }
+            console.log(redirectUrl)
             
         </script>
         <div id="cadastrar">
             
-            <a href="/login/l?redirect=<%= redirectUrl %>">Entre</a>
+            <a href="" id="entre">Entre</a>
             <span>ou</span>
             <button onclick="location.href='/cadastrar'">CADASTRE-SE</button>
         </div>
-        <div id="usuarioLogado"></div>
+        <div id="usuarioLogado">
+            <a href="/carrinho">
+                <div id="carrinho">
+                    <img src="../Imagens/carrinho.png" alt="">
+                </div>
+            </a>
+            <div id="usuario"></div>
+        </div>
         
     </header>
 
@@ -117,6 +141,11 @@
             <li><a href="/sejaUmDoador">Seja um Doador</a></li>
         </ul>
     </footer>
-    <script src="../../Javascript/script.js"></script>
+    <script src="../Javascript/script_usuario.js"></script>
+    <script src="../Javascript/script_pesquisar.js"></script>
+    <script>
+        var entreLink = document.getElementById('entre');
+        entreLink.setAttribute('href', '/login/l?redirect='+encodeURIComponent (redirectUrl));
+    </script>
 </body>
 </html>

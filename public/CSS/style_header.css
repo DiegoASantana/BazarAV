@@ -143,8 +143,7 @@ nav a:hover{
     position: absolute;
     right: 20px;
     display: none;
-    width: 250px;
-    flex-direction: column;
+    width: 280px;
     align-items: center;
     top:30%;
 }
@@ -156,7 +155,30 @@ nav a:hover{
     text-align: end;
 }
 
-#usuarioLogado a{
-    width: 95%;
-    text-align: end;
+#usuario{
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+}
+
+#usuarioLogado #carrinho{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 0.7px rgb(0, 132, 255);
+    margin-right: 20px;
+}
+
+#usuarioLogado #carrinho img{
+    width: 60%;
+}
+
+#carrinho:hover{
+    box-shadow: 1px 1px 5px 2px rgb(0, 0, 0, 0.2);
+    cursor: pointer;
 }

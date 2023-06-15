@@ -34,6 +34,8 @@
         app.use('/setor',require('./public/Routes/rota_nav'));
         app.use('/login',require('./public/Routes/rota_login'));
         app.use('/cadastrar',require('./public/Routes/rota_cadastrar'));
+        app.use('/carrinho',require('./public/Routes/rota_compras'));
+        app.use('/teste',require('./public/Routes/rota_teste'));
 
 
 
@@ -44,6 +46,7 @@ app.get('/', (req,res)=>{
 
     Itens.findAll().then(function (itens) {
         if(req.session.usuario){
+            console.log(req.session.usuario)
             var usuarioSessao = req.session.usuario;
             res.render('index', { itens: itens, usuario: usuarioSessao, redirectUrl: redirectUrl });
         }else{
@@ -93,8 +96,9 @@ app.get('/pesquisa/:pesquisa', (req, res) => {
             { ITM_Sexo: palavra },
             { ITM_Marca: palavra },
             { ITM_CodReferencia: palavra },
+            { ITM_Tipo: palavra },
             { ITM_Descricao: { [Op.like]: `%${palavra}%` } },
-            { ITM_Item: { [Op.like]: `%${palavra}%` } },
+            { ITM_Item: { [Op.like]: `%${palavra} %` } },
             { ITM_PalavrasChave: { [Op.like]: `%${palavra}%` } }
         ]
     }));
@@ -123,6 +127,18 @@ app.get('/logout', (req,res)=>{
 
 app.get('/teste', (req,res)=>{
     res.render('teste')
+})
+
+app.post('/addCarrinho', (req,res)=>{
+    const item_id = req.body.item_id;
+    console.log(item_id)
+    if(!req.session.carrinho){
+        req.session.carrinho = [];
+    }
+    req.session.carrinho.push(item_id);
+    console.log(req.session.carrinho)
+    console.log(req.session)
+    res.sendStatus(200);
 })
 
 

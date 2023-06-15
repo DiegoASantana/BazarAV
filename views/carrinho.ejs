@@ -68,11 +68,9 @@
             <button onclick="location.href='/cadastrar'">CADASTRE-SE</button>
         </div>
         <div id="usuarioLogado">
-            <a href="/carrinho">
-                <div id="carrinho">
-                    <img src="../Imagens/carrinho.png" alt="">
-                </div>
-            </a>
+            <div id="carrinho">
+                <img src="../Imagens/carrinho.png" alt="" srcset="">
+            </div>
             <div id="usuario"></div>
         </div>
         
@@ -200,7 +198,7 @@
         btnCalcular.addEventListener('click', ()=>{
             const cep = inputCep.value;
 
-            fetch(`/teste/calcular_frete/${cep}`)
+            fetch(`/carrinho/calcular_frete/${cep}`)
                 .then((response)=> response.json())
                 .then((dadosFrete)=>{
                     console.log(dadosFrete)
