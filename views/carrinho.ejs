@@ -10,6 +10,26 @@
     <link rel ="stylesheet" href="../CSS/style_footer.css"> <!-- Footer -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <style>
+        #div_lixeira{
+            width: 30px;
+            height: auto;
+            border: none;
+            position: absolute;
+            left: 80%;
+        }
+        #div_lixeira img{
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(1px 1px 5px rgb(0, 0, 0, 0.5));
+        }
+
+        #div_lixeira img:hover{
+            transform: scale(1.08);
+        }
+
+
+    </style>
 
 </head>
 <body>
@@ -91,6 +111,9 @@
                 </article>
                 <div class="nome_item">
                     <h2><%= item.ITM_Item %></h2>
+                </div>
+                <div id="div_lixeira">
+                    <a href="/carrinho/remove_item/<%= item.ITM_IdItem %>"><img src="../Imagens/lixeira.png" alt=""></a>
                 </div>
                 <div class="valor_item">
                     <span>
