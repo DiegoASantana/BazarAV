@@ -174,7 +174,7 @@
             </div>
             <!-- ********************************************************************************************** -->
             <div id="div_button">
-                <button type="button" id="btn_finalizarCompra" class="custom-button" disabled>Finalizar Compra</button>
+                <button type="button" id="btn_finalizarCompra" class="custom-button" onclick="finalizarCompra()" disabled>Finalizar Compra</button>
             </div>
         
 
@@ -242,7 +242,12 @@
             valor_frete.textContent = `${frete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
             total_a_pagar.textContent = `${valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
             $('#btn_finalizarCompra').removeClass('disabled');
+            $('#btn_finalizarCompra').removeAttr('disabled');
             $('#btn_finalizarCompra').css('background-color', '#06bb06');;
+        }
+
+        function finalizarCompra(){
+            location.href = '/teste/teste'
         }
 
     </script>

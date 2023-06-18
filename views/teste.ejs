@@ -10,7 +10,146 @@
     <link rel ="stylesheet" href="../CSS/style_footer.css"> <!-- Footer -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <style>
 
+
+
+        #div_centro{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        
+
+        .etapa {
+            opacity: 0.5; /* Define a aparência das etapas desativadas */
+            pointer-events: none; /* Impede a interação com as etapas desativadas */
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            margin-top: 30px;
+            width: 33.33%;
+            padding: 0 15px;
+        }
+
+        .todas_etapas {
+            display: flex;
+            flex-direction: column;
+            height: 300px;
+        }
+        
+
+        .etapa.ativa {
+            opacity: 1; /* Define a aparência da etapa ativa */
+            pointer-events: auto; /* Permite a interação com a etapa ativa */
+        }
+
+
+        .todas_etapas input[type="text"]{
+            border: none;
+            border-radius: 5px;
+            box-shadow: 1px 1px 5px 1px rgb(0, 132, 255, 0.5);
+            height: 30px; 
+        }
+
+        .etapa label{
+            margin-top: 30px;
+            margin-bottom: 8px;
+            font-weight: bolder;
+        }
+
+        .etapa #div_botao{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .etapa button{
+            margin-top: 20px;
+            width: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bolder;
+            background-color: #b6b3b3;
+        }
+
+        .etapa.ativa button{
+            border: none;
+            background-color: rgb(0, 132, 255);
+            color: #fff;
+        }
+
+        .etapa.ativa button:hover{
+            box-shadow: 2px 2px 5px 1px rgb(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+
+        .etapa.ativa button.clicked{
+            background-color: rgb(2, 87, 167);
+        }
+
+        .div-borda h3{
+            font-size: 1em;
+        }
+
+        .div-borda {
+            position: relative;
+            display: flex;
+            background-color: lightgray;
+            border-right: none;
+            /*background-color: gray;*/
+            height: 35px;
+            width: 330px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .div-borda::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -60px;
+            transform: translateY(-50%);
+            width: 30px;
+            border-top: 17.5px solid transparent;
+            border-bottom: 17.5px solid transparent;
+            border-left: 30px solid lightgray;
+            
+        }
+
+        #endereco{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #endereco div{
+            display: flex;
+            flex-direction: column;
+        }
+
+        #formas_pagamentos{
+            display: flex;
+            flex-direction: column;
+        }
+
+        #area_pagamento{
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        #area_pagamento p{
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        #formas_pagamentos input{
+            width: 10px;
+        }
+
+
+    </style>
 </head>
 <body>
     
@@ -78,91 +217,118 @@
         
         
     </header>
-
-    <main id="main_carrinho">
-        <% let total_compra= 0 %> 
-        <% function soma(a,b){ %> 
-        <% let result = a + b; %> 
-        <% return result; %> 
-        <% } %> 
-        
-        <% itens.forEach(function(item){ %>
-            <div class="destaques">
-                <article>
-                    <img src="<%= item.ITM_Foto %>" alt="exemplo de roupa">
-                </article>
-                <div class="nome_item">
-                    <h2><%= item.ITM_Item %></h2>
-                </div>
-                <div id="div_liveira">
-                    <a href=""><img src="../Imagens/lixeira.png" alt=""></a>
-                </div>
-                <div class="valor_item">
-                    <span>
-                        VALOR: <%= item.ITM_Valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %>
-                    </span>
-                </div>
-            </div>
-            <hr>
+    <main>
+        <div id="div_centro">
             
-            <% total_compra= total_compra+  item.ITM_Valor %> 
-            
-        <% }) %>
-        <!-- ********************************************************************************************** -->
-            <div id="area_totais">
-
-                <div id="area_frete">
-                    <input type="text" name="cep" id="input_cep">
-                    <input type="button" id="btn_calc_frete" value="Calcular Frete">
-                    <div id="msg_frete"></div>
+            <div class="etapa etapa-1 ativa">
+                
+                <div class="div-borda">
+                    <h3>Cadastre o Endereço para Entrega</h3>
                 </div>
-
-                <div id="area_valores">
-                    <div id="div_total_produtos">
-                        <div>
-                            <span>Valor Total: </span>
+                <!-- Conteúdo da primeira etapa -->
+                <div class="todas_etapas">
+                    <div id="endereco">
+                        <div style="width: 250px;">
+                            <label for="endereco">Endereço:</label>
+                            <input type="text" name="rua" class="etapa-input" required>
                         </div>
-                        <div>
-                            <span id="valor_total" data-valor-total="<%= total_compra %>"><%= total_compra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></span>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div id="div_frete">
-                        <div>
-                            <span>Frete: </span>
-                        </div>
-                        <div>
-                            
-                            <span id="valor_frete"></span>
-
+                        <div style="width: 50px;">
+                            <label for="numero">Nº:</label>
+                            <input type="text" name="numEndereco" class="etapa-input" required>
                         </div>
                     </div>
-
-                    <hr>
-
-                    <div id="div_valor_total_a_pagar">
-                        <div>
-                            <span>Total a Pagar: </span>
-                        </div>
-                        <div>
-                            
-                            <span id="total_a_pagar"></span>
-
-                        </div>
-                    </div>
+                    <label for="bairro">Bairro:</label>
+                    <input type="text" name="bairro" class="etapa-input"required>
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" name="cidade" class="etapa-input" required>
+                </div>
+                <div id="div_botao"> 
+                    <button onclick="avancarEtapa()">Avançar</button> 
                 </div>
             </div>
-            <!-- ********************************************************************************************** -->
-            <div id="div_button">
-                <button type="button" id="btn_finalizarCompra" class="custom-button" disabled>Finalizar Compra</button>
-            </div>
-        
+            <div class="etapa etapa-2">
+                <div class="div-borda">
+                    <h3>Forma de Pagamento</h3>
+                </div>               <!-- Conteúdo da segunda etapa -->
+                <div class="todas_etapas">
+                    <!--
+                    <div id="formas_pagamentos">
+                        <label for="Cartão">Cartão:</label>
+                        <div><input type="radio" name="Opcao" id="" class="etapa-input"><label for="mastercard"> Mastercard</label class="etapa-input"></div>
+                        <div><input type="radio" name="Opcao" id="" class="etapa-input"> <label for="visa">Visa</label></div>
+                        <div><input type="radio" name="Opcao" id="" class="etapa-input"> <label for="elo">Elo</label></div>
 
+                        <label for="Cartão">Boleto:</label>
+                        <div><input type="radio" name="Opcao" id=""> <label for="boleto_bancario" class="etapa-input">Boleto Bancário</label></div>
+                    </div>
+                    -->
+                    <div id="area_pagamento">
+                        <p>Informamos que, no momento, estamos aceitando exclusivamente pagamentos por meio de Pix como forma de pagamento em nossa plataforma.
+                        </p>
+                    </div>
+                    <div>
+                        <h4>Valores da Compra</h4>
+
+                        <div id="area_valores">
+                            <div id="div_total_produtos">
+                                <div>
+                                    <span>Valor Total: </span>
+                                </div>
+                                <div>
+                                    <span id="valor_total"></span>
+                                </div>
+                            </div>
         
+                            <hr>
         
-    </main>
+                            <div id="div_frete">
+                                <div>
+                                    <span>Frete: </span>
+                                </div>
+                                <div>
+                                    
+                                    <span id="valor_frete"></span>
+        
+                                </div>
+                            </div>
+        
+                            <hr>
+        
+                            <div id="div_valor_total_a_pagar">
+                                <div>
+                                    <span>Total a Pagar: </span>
+                                </div>
+                                <div>
+                                    
+                                    <span id="total_a_pagar"></span>
+        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="div_botao"> 
+                    <button onclick="avancarEtapa()">Avançar</button> 
+                </div>
+            </div>
+            <div class="etapa etapa-3">
+                <div class="div-borda">
+                    <h3>Finalize o seu Pedido</h3>
+                </div>
+                <!-- Conteúdo da terceira etapa -->
+                <div class="todas_etapas">
+                    <label for="cartao">Número do Cartão:</label>
+                    <input type="text" name="cartao" class="etapa-input">
+                    <label for="validade">Validade do Cartão:</label>
+                    <input type="text" name="validade" class="etapa-input">
+                </div>
+                <div id="div_botao"> 
+                    <button onclick="avancarEtapa()" style="width: 135px;">Finalizar Compra</button> 
+                </div>
+            </div>
+        </div>
+          
+      </main>
 
     <footer class="footer">
         <ul>
@@ -174,57 +340,51 @@
     <script src="../Javascript/script_usuario.js"></script>
     <script>
 
-        $(document).ready(function() {
-            // Desabilitar o botão customizado
-            $('#btn_finalizarCompra').addClass('disabled');
+        
+       // Seletor dos elementos das etapas
+        const etapas = document.querySelectorAll('.etapa');
 
-            // Impedir eventos de clique no botão customizado desabilitado
-            $('#btn_finalizarCompra').on('click', function(event) {
-                if ($(this).hasClass('disabled')) {
-                    event.preventDefault();
-                    return false;
+        // Função para avançar para a próxima etapa
+        function avancarEtapa() {
+            const etapaAtual = document.querySelector('.etapa.ativa');
+            const camposInput = document.querySelectorAll('.etapa.ativa .etapa-input');
+            let fullPreenchimento = true;
+
+            camposInput.forEach(campo =>{
+                if (campo.type === 'radio' && !isCampoRadioSelecionado(campo.name)) {
+                    fullPreenchimento = false;
+                    const campoPai = campo.closest('div');
+                    campoPai.classList.add('campo-invalido'); // Adicione uma classe para destacar campos inválidos
+                } else if (campo.value === '') {
+                    fullPreenchimento = false;
+                    campo.classList.add('campo-invalido'); // Adicione uma classe para destacar campos inválidos
+                } else {
+                    campo.classList.remove('campo-invalido');
                 }
-            });
-        });
+            })
 
-        $(document).ready(function(){
-          $('#input_cep').inputmask('99999-999')  
-        });
+            if(fullPreenchimento){
+                // Verifica se há uma próxima etapa
+                if (etapaAtual.nextElementSibling) {
+                    etapaAtual.classList.remove('ativa');
+                    etapaAtual.classList.add('desativada');
+                    etapaAtual.nextElementSibling.classList.add('ativa');
+                }
+            }else{
+                alert(`É necessário o preenchimento de todos os campos antes de prosseguir.`)
+            }
 
-        const inputCep = document.querySelector('#input_cep');
-        const btnCalcular = document.querySelector('#btn_calc_frete');
-        const msg_frete = document.querySelector('#msg_frete');
+        }
 
-        const spanValorTotal = document.querySelector('#valor_total');
-        const valor_total = spanValorTotal.getAttribute("data-valor-total");
-        const valor_frete = document.querySelector('#valor_frete');
-        const total_a_pagar = document.querySelector('#total_a_pagar');
-
-        btnCalcular.addEventListener('click', ()=>{
-            const cep = inputCep.value;
-
-            fetch(`/teste/calcular_frete/${cep}`)
-                .then((response)=> response.json())
-                .then((dadosFrete)=>{
-                    console.log(dadosFrete)
-                    console.log(dadosFrete[0].Valor)
-                    exibirDadosFrete(dadosFrete)
-                })
-                .catch((error)=>{
-                    console.error('Erro ao calcular o Frete: ', error);
-                });
-        });
-
-        function exibirDadosFrete(dadosFrete){
-            let frete =parseFloat(dadosFrete[0].Valor.replace(',', '.'));
-            let valorTotal = parseFloat(valor_total) + frete;
-            console.log(valor_total)
-
-            msg_frete.textContent = dadosFrete[0].obsFim;
-            valor_frete.textContent = `${frete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
-            total_a_pagar.textContent = `${valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
-            $('#btn_finalizarCompra').removeClass('disabled');
-            $('#btn_finalizarCompra').css('background-color', '#06bb06');;
+        // Função auxiliar para verificar se pelo menos um campo de radio foi selecionado
+        function isCampoRadioSelecionado(nomeCampo) {
+        const radioButtons = document.querySelectorAll(`input[name="${nomeCampo}"]`);
+        for (let i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].checked) {
+            return true;
+            }
+        }
+        return false;
         }
 
     </script>
