@@ -97,9 +97,9 @@ app.get('/pesquisa/:pesquisa', (req, res) => {
             { ITM_Marca: palavra },
             { ITM_CodReferencia: palavra },
             { ITM_Tipo: palavra },
-            { ITM_Descricao: { [Op.like]: `%${palavra}%` } },
+            { ITM_Descricao: { [Op.like]: `%${palavra} %` } },
             { ITM_Item: { [Op.like]: `%${palavra} %` } },
-            { ITM_PalavrasChave: { [Op.like]: `%${palavra}%` } }
+            { ITM_PalavrasChave: { [Op.like]: `%${palavra},%` } }
         ]
     }));
 
